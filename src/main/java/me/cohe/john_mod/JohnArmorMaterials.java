@@ -11,6 +11,6 @@ public enum JohnArmorMaterials {
     Netherite;
 
     public static ArmorMaterials toArmorMaterial(JohnArmorMaterials johnMaterial) {
-        return Enum.valueOf(ArmorMaterials.class, johnMaterial.name());
+        return Enum.valueOf(ArmorMaterials.class, johnMaterial.name().toUpperCase());
     }
 }
