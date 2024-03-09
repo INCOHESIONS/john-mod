@@ -1,5 +1,7 @@
 package me.cohe.john_mod.mixin;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -8,6 +10,7 @@ import net.minecraft.util.Nameable;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 
+@Environment(EnvType.CLIENT)
 @Mixin(LivingEntity.class)
 public abstract class JohnEntityMixin extends Entity implements Nameable {
     protected JohnEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {

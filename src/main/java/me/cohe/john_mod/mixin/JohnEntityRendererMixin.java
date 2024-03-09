@@ -1,6 +1,8 @@
 package me.cohe.john_mod.mixin;
 
 import me.cohe.john_mod.JohnUtils;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.entity.Entity;
@@ -14,6 +16,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
+@Environment(EnvType.CLIENT)
 @Mixin(EntityRenderer.class)
 public abstract class JohnEntityRendererMixin {
     @Shadow
