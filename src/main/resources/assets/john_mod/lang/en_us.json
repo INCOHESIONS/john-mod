@@ -1,0 +1,10 @@
+{
+  "config.john_mod.title": "John Mod",
+  "config.john_mod.category": "John Mod",
+  "config.john_mod.name_tag": "Name tag text",
+  "config.john_mod.name_tag.tooltip": "Determines the text the name tags will have. {mob_name} will be replaced with the name of the mob.",
+  "config.john_mod.armor_type":  "Armor type",
+  "config.john_mod.armor_type.tooltip": "The type of armor the John has to have to get the name tag.",
+  "config.john_mod.rendering_type":  "Rendering type",
+  "config.john_mod.rendering_type.tooltip": "Determines whether Johns will have their name tags rendered through walls or not."
+}

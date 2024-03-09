@@ -1,5 +1,7 @@
 package me.cohe.john_mod.mixin;
 
+import me.cohe.john_mod.JohnUtils;
+import me.cohe.john_mod.config.JohnConfig;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.Entity;
@@ -19,6 +21,11 @@ public abstract class JohnEntityMixin extends Entity implements Nameable {
 
     @Override
     public Text getName() {
-        return Text.of("John ").copy().append(Text.translatable(this.getType().getTranslationKey()));
+        if (this.getCustomName() == null && JohnUtils.isJohn(this)) {
+            final var mobName = Text.translatable(this.getType().getTranslationKey()).getString();
+            return Text.of(JohnConfig.config.nameTagText.replace("{mob_name}", mobName));
+        }
+
+        return super.getName();
     }
 }

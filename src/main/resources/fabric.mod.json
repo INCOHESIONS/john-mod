@@ -14,6 +14,9 @@
   "entrypoints": {
     "main": [
       "me.cohe.john_mod.JohnMod"
+    ],
+    "modmenu": [
+      "me.cohe.john_mod.config.JohnModMenu"
     ]
   },
   "mixins": [
