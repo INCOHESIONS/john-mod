@@ -3,12 +3,10 @@ package me.cohe.john_mod.config;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 import me.cohe.john_mod.JohnGlobals;
 import net.fabricmc.loader.api.FabricLoader;
 
 import java.io.*;
-import java.util.stream.Collectors;
 
 /*
     Inspired by: https://github.com/Awakened-Redstone/Subathon

@@ -1,7 +1,6 @@
 package me.cohe.john_mod;
 
 
-import me.cohe.john_mod.config.JohnConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
