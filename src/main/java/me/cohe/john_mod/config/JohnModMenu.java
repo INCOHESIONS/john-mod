@@ -3,6 +3,7 @@ package me.cohe.john_mod.config;
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 import me.cohe.john_mod.JohnArmorMaterials;
+import me.cohe.john_mod.JohnGlobals;
 import me.cohe.john_mod.JohnRenderType;
 import me.cohe.john_mod.JohnUtils;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
@@ -11,7 +12,7 @@ public class JohnModMenu implements ModMenuApi {
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
         return parent -> {
-            final var config = JohnConfig.config;
+            final var config = JohnConfig.getConfigData();
 
             final var configBuilder = ConfigBuilder.create()
                     .setParentScreen(parent)

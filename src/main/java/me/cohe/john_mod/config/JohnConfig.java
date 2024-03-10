@@ -3,55 +3,59 @@ package me.cohe.john_mod.config;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import me.cohe.john_mod.JohnArmorMaterials;
+import com.google.gson.JsonObject;
 import me.cohe.john_mod.JohnGlobals;
-import me.cohe.john_mod.JohnRenderType;
 import net.fabricmc.loader.api.FabricLoader;
 
 import java.io.*;
+import java.util.stream.Collectors;
 
-public class JohnConfig {
-    public static JohnConfig config = new JohnConfig();
-    private static final File CONFIG_FILE = new File(FabricLoader.getInstance().getConfigDir().toFile(), "JohnMod.json");
+/*
+    Inspired by: https://github.com/Awakened-Redstone/Subathon
+*/
+public final class JohnConfig {
+    private static JohnConfigData configData = new JohnConfigData();
+    private static final File CONFIG_FILE = new File(getConfigDirectory(), JohnGlobals.CONFIG_FILENAME);
     private static final Gson GSON = new GsonBuilder()
             .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+            .serializeNulls()
             .create();
 
+    public static JohnConfigData getConfigData() {
+        return configData;
+    }
+
+    public static File getConfigDirectory() {
+        return FabricLoader.getInstance().getConfigDir().toFile();
+    }
+
     public static void loadConfig() {
-        if (CONFIG_FILE.exists()) {
-            try (Reader reader = new FileReader(CONFIG_FILE)) {
-                JohnConfig.config = GSON.fromJson(reader, JohnConfig.class);
-                JohnGlobals.LOGGER.info("Config file loaded!");
-            } catch (IOException e) {
-                JohnGlobals.LOGGER.info("Unable to read config file.");
-                e.printStackTrace();
+        final var dir = getConfigDirectory();
+
+        if ((dir.exists() && dir.isDirectory()) || dir.mkdirs()) {
+            if (!CONFIG_FILE.exists()) {
+                configData = new JohnConfigData();
+                saveConfig();
+                return;
             }
         }
 
-        if (config == null) {
-            JohnGlobals.LOGGER.info("Config file not found! Creating one...");
-            config = new JohnConfig();
-            saveConfig();
+        if (CONFIG_FILE.exists() && CONFIG_FILE.isFile() && CONFIG_FILE.canRead()) {
+            try (final var reader = new FileReader(CONFIG_FILE)) {
+                configData = GSON.fromJson(reader, JohnConfigData.class);
+            } catch (IOException e) {
+                JohnGlobals.LOGGER.error("Failed to load configuration!", e);
+            }
+        } else {
+            JohnGlobals.LOGGER.error("Failed to load configuration file either because it didn't exist, or was unreadable.");
         }
     }
 
     public static void saveConfig() {
-        try (Writer writer = new FileWriter(CONFIG_FILE, false)) {
-            if (CONFIG_FILE.createNewFile()) {
-                GSON.toJson(config, writer);
-                JohnGlobals.LOGGER.info("Config file created.");
-            }
+        try (final var writer = new FileWriter(CONFIG_FILE)) {
+            writer.write(GSON.toJson(configData));
         } catch (IOException e) {
-            JohnGlobals.LOGGER.info("Unable to create config file.");
-            e.printStackTrace();
+            JohnGlobals.LOGGER.warn("Failed to write JSON data to the config file.", e);
         }
     }
-
-    public String nameTagText = "John {mob_name}";
-
-    public boolean overrideCustomNames = true;
-
-    public JohnRenderType renderType = JohnRenderType.WhenVisible;
-
-    public JohnArmorMaterials johnMaterial = JohnArmorMaterials.Gold;
 }

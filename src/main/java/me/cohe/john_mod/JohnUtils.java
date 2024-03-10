@@ -17,12 +17,12 @@ public final class JohnUtils {
     }
 
     public static <T extends Entity> boolean isJohn(T entity) {
-        return entity instanceof LivingEntity && JohnUtils.all(entity.getArmorItems(), JohnUtils::predicate) && (JohnConfig.config.overrideCustomNames || !(entity.hasCustomName()));
+        return entity instanceof LivingEntity && JohnUtils.all(entity.getArmorItems(), JohnUtils::predicate) && (JohnConfig.getConfigData().overrideCustomNames || !(entity.hasCustomName()));
     }
 
     private static boolean predicate(final ItemStack itemStack) {
         if (itemStack != null && itemStack != ItemStack.EMPTY && itemStack.getItem() instanceof ArmorItem item) {
-            final var armorMaterial = JohnArmorMaterials.toArmorMaterial(JohnConfig.config.johnMaterial);
+            final var armorMaterial = JohnArmorMaterials.toArmorMaterial(JohnConfig.getConfigData().johnMaterial);
             return item.getMaterial().equals(armorMaterial);
         }
 

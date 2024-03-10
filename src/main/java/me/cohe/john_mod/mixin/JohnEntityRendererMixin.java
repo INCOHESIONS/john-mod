@@ -23,7 +23,7 @@ public abstract class JohnEntityRendererMixin {
     private boolean renderJohn(EntityRenderer<Entity> instance, Entity entity) {
         if (JohnUtils.isJohn(entity)) {
             assert MinecraftClient.getInstance().player != null;
-            return JohnConfig.config.renderType != JohnRenderType.WhenVisible || MinecraftClient.getInstance().player.canSee(entity);
+            return JohnConfig.getConfigData().renderType != JohnRenderType.WhenVisible || MinecraftClient.getInstance().player.canSee(entity);
         }
 
         return this.hasLabel(entity);
