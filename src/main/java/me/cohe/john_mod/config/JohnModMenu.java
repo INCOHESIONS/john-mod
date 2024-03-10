@@ -40,6 +40,12 @@ public class JohnModMenu implements ModMenuApi {
                     .setSaveConsumer(value -> config.renderType = value)
                     .build());
 
+            settings.addEntry(entryBuilder.startBooleanToggle(JohnUtils.translate("config.john_mod.override_custom_names"), config.overrideCustomNames)
+                    .setDefaultValue(false)
+                    .setTooltip(JohnUtils.translate("config.john_mod.override_custom_names.tooltip"))
+                    .setSaveConsumer(value -> config.overrideCustomNames = value)
+                    .build());
+
             return configBuilder.build();
         };
     }

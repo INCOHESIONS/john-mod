@@ -21,7 +21,7 @@ public abstract class JohnEntityMixin extends Entity implements Nameable {
 
     @Override
     public Text getName() {
-        if (this.getCustomName() == null && JohnUtils.isJohn(this)) {
+        if (JohnUtils.isJohn(this)) {
             final var mobName = Text.translatable(this.getType().getTranslationKey()).getString();
             return Text.of(JohnConfig.config.nameTagText.replace("{mob_name}", mobName));
         }

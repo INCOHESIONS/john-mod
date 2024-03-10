@@ -17,7 +17,7 @@ public final class JohnUtils {
     }
 
     public static <T extends Entity> boolean isJohn(T entity) {
-        return entity instanceof LivingEntity && JohnUtils.all(entity.getArmorItems(), JohnUtils::predicate) && !(entity.hasCustomName());
+        return entity instanceof LivingEntity && JohnUtils.all(entity.getArmorItems(), JohnUtils::predicate) && (JohnConfig.config.overrideCustomNames || !(entity.hasCustomName()));
     }
 
     private static boolean predicate(final ItemStack itemStack) {
